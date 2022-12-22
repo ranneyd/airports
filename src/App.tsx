@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+import { AppBar, Container, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import { AirportAutocomplete } from "./AirportAutocomplete";
+import { GoogleMap } from "./GoogleMap";
 
-function App() {
+const App = () => {
+  const [source, setSource] = useState("");
+  const [destination, setDestination] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div
+      css={{
+        minHeight: "100vh",
+        maxHeight: "100vh",
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <AppBar position="static">
+        <Toolbar css={{ display: "flex", justifyContent: "center" }}>
+          <Typography variant="h5">Airports!</Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Container
+        maxWidth="sm"
+        css={{
+          flex: 1,
+          minHeight: 0,
+          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div>
+          <p>Find out information about the distance between two airports!</p>
+
+          <AirportAutocomplete
+            placeholder="Starting airport"
+            onChange={setSource}
+          />
+
+          <AirportAutocomplete
+            placeholder="Destination airport"
+            onChange={setDestination}
+          />
+        </div>
+        <div
+          css={{
+            flex: 1,
+            display: "flex",
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <GoogleMap source={source} destination={destination} />
+        </div>
+      </Container>
     </div>
   );
-}
+};
 
 export default App;
