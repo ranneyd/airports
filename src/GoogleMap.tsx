@@ -27,7 +27,6 @@ const getLocation = memoize(async (address: string) => {
   if (!geocoder) {
     geocoder = new google.maps.Geocoder();
   }
-  console.log("address", address);
   const res = await geocoder.geocode({
     address,
   });
@@ -123,6 +122,7 @@ const InternalGoogleMap = React.memo<GoogleMapProps>(({ airports }) => {
       // https://stackoverflow.com/a/19304625
       const bounds = new google.maps.LatLngBounds();
 
+      // Delete all the map markers, since we may have deleted some points.
       for (const marker of R.values(markerMapRef.current)) {
         marker.setMap(null);
       }
