@@ -20,7 +20,6 @@ import { getDistance } from "./haversine";
 import { isUndefined } from "lodash";
 
 let geocoder: google.maps.Geocoder | undefined;
-
 const getGeoCoder = () => {
   if (!geocoder) {
     geocoder = new google.maps.Geocoder();
@@ -41,7 +40,7 @@ interface GoogleMapProps {
 const InternalGoogleMap = React.memo<GoogleMapProps>(
   ({ source, destination }) => {
     const { palette } = useTheme();
-    // Map stuff
+    // Map-rendering stuff
     const divRef = useRef<HTMLDivElement | null>(null);
     const [map, setMap] = useState<google.maps.Map>();
 
@@ -102,6 +101,8 @@ const InternalGoogleMap = React.memo<GoogleMapProps>(
       [srcPos, destPos]
     );
 
+    // Whenever the source or destination change, or once we've first created the map,
+    // draw all the things.
     useEffect(() => {
       if (srcPos && destPos && map) {
         // https://stackoverflow.com/a/19304625

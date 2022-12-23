@@ -22,7 +22,6 @@ const App = () => {
           <Typography variant="h5">Airports!</Typography>
         </Toolbar>
       </AppBar>
-
       <Container
         maxWidth="sm"
         css={{
@@ -35,12 +34,10 @@ const App = () => {
       >
         <div>
           <p>Find out information about the distance between two airports!</p>
-
           <AirportAutocomplete
             placeholder="Starting airport"
             onChange={setSource}
           />
-
           <AirportAutocomplete
             placeholder="Destination airport"
             onChange={setDestination}
