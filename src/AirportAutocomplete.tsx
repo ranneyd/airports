@@ -17,10 +17,11 @@ interface AirportOption {
 interface AirportAutocompleteProps {
   placeholder: string;
   onChange: (name: string) => void;
+  className?: string;
 }
 
 export const AirportAutocomplete = React.memo<AirportAutocompleteProps>(
-  ({ placeholder, onChange }) => {
+  ({ placeholder, onChange, className }) => {
     // Dropdown options. Will be constantly updated as we type and get new options from
     // API
     const [options, setOptions] = useState<AirportOption[]>([]);
@@ -86,7 +87,7 @@ export const AirportAutocomplete = React.memo<AirportAutocompleteProps>(
     }, [inputValue, loading]);
 
     return (
-      <div css={{ marginBottom: "1rem" }}>
+      <div className={className}>
         {/* Influenced by this code sample: https://mui.com/material-ui/react-autocomplete/#asynchronous-requests */}
         <Autocomplete
           // Without this, if we type something and exit without selecting, the next

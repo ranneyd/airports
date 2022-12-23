@@ -1,16 +1,16 @@
 # Airports!
 
-This is a very simple app. You put in two airports, it gives you the coordinates, the distance in nautical miles between them, and a google map with the two points plotted.
+This is a very simple app. You put in two or more airports, it gives you the coordinates of each, the distance in nautical miles between each airport in the path (as well as the final sum), and a google map with all the points plotted.
 
 ## Functionality
 
-There are two auto-complete input fields. It will find an airport from:
+There are two or more auto-complete input fields. It will find an airport from:
 
 - IATA Code (LAX)
 - Airport Name (Los Angeles International Airport)
 - City
 
-Once it has both locations, it will find (and display) their exact coordinates, calculate (and display) their distance in nautical miles, and render a Google Map showing both points and a line connecting them.
+Once it has two or more locations, it will find (and display) their exact coordinates, calculate (and display) their distance in nautical miles, and render a Google Map showing all points with a line connecting them (in order).
 
 ## Airport Search
 
