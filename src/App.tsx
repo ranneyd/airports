@@ -53,8 +53,7 @@ const App = () => {
           <Typography variant="h5">Airports!</Typography>
         </Toolbar>
       </AppBar>
-      <Container
-        maxWidth="sm"
+      <div
         css={{
           flex: 1,
           minHeight: 0,
@@ -63,51 +62,53 @@ const App = () => {
           flexDirection: "column",
         }}
       >
-        <div css={{ marginBottom: "1rem" }}>
-          <p>Find out information about the distance between airports!</p>
-          {airports.map((airport, i) => {
-            return (
-              <div
-                key={airport.id}
-                css={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: "1rem",
-                }}
-              >
-                <AirportAutocomplete
-                  css={{ flex: 1 }}
-                  placeholder={`Airport #${i + 1}`}
-                  onChange={(val) => setAirportAtI(i, val)}
-                />
-                {/* We can only delete airports if there are more than 2 */}
-                {airports.length > 2 && (
-                  <Button
-                    color="error"
-                    variant="contained"
-                    disableElevation
-                    css={{ marginLeft: "0.5rem" }}
-                    onClick={() => deleteAirportAtI(i)}
-                  >
-                    Remove
-                  </Button>
-                )}
-              </div>
-            );
-          })}
-          <Button variant="contained" onClick={addAirport}>
-            Add an Airport!
-          </Button>
-        </div>
-        <div
-          css={{
-            flex: 1,
-            display: "flex",
-          }}
-        >
-          <GoogleMap airports={airports} />
-        </div>
-      </Container>
+        <Container maxWidth="sm">
+          <div css={{ marginBottom: "1rem" }}>
+            <p>Find out information about the distance between airports!</p>
+            {airports.map((airport, i) => {
+              return (
+                <div
+                  key={airport.id}
+                  css={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <AirportAutocomplete
+                    css={{ flex: 1 }}
+                    placeholder={`Airport #${i + 1}`}
+                    onChange={(val) => setAirportAtI(i, val)}
+                  />
+                  {/* We can only delete airports if there are more than 2 */}
+                  {airports.length > 2 && (
+                    <Button
+                      color="error"
+                      variant="contained"
+                      disableElevation
+                      css={{ marginLeft: "0.5rem" }}
+                      onClick={() => deleteAirportAtI(i)}
+                    >
+                      Remove
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+            <Button variant="contained" onClick={addAirport}>
+              Add an Airport!
+            </Button>
+          </div>
+          <div
+            css={{
+              flex: 1,
+              display: "flex",
+            }}
+          >
+            <GoogleMap airports={airports} />
+          </div>
+        </Container>
+      </div>
     </div>
   );
 };
