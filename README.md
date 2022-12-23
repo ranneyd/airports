@@ -1,46 +1,31 @@
-# Getting Started with Create React App
+# Airports!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a very simple app. You put in two airports, it gives you the coordinates, the distance in nautical miles between them, and a google map with the two points plotted.
 
-## Available Scripts
+## Functionality
 
-In the project directory, you can run:
+There are two auto-complete input fields. It will find an airport from:
 
-### `npm start`
+- IATA Code (LAX)
+- Airport Name (Los Angeles International Airport)
+- City
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once it has both locations, it will find (and display) their exact coordinates, calculate (and display) their distance in nautical miles, and render a Google Map showing both points and a line connecting them.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Airport Search
 
-### `npm test`
+I get the airport data from a website called [AIR-PORT-CODES](https://www.air-port-codes.com/). It has a very nice "auto-complete" endpoint.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Note: I discovered the API has a huge security flaw. It inserts user input into a raw SQL query, so it's susceptible to SQL injection. Unfortunately, this means that search strings with `'` characters in them cause the API to 500 because it breaks the query, so you cannot search for O'Hare by name (though you can, of course, find it with `ORD` or `Chicago`).
 
-### `npm run build`
+## Airport Coordinates
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I find the coordinates of the airports via the Google Maps API I'm already using to display the maps. There is a geocoding API that takes an "address", and returns the latitude and longitude. The "address" does not have to be an actual address; it can be what you'd put in the search bar in Google Maps. I put the full airports names in, and Google Maps is smart enough to locate them.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Distance
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I use the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula) to compute the distance between the points. I borrowed the code from [this excellent stack overflow answer](https://stackoverflow.com/a/27943).
 
-### `npm run eject`
+## Google Maps
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+I followed the Google Maps API documentation very carefully. They have [an entire article](https://developers.google.com/maps/documentation/javascript/react-map) about using it with React
